@@ -1,0 +1,22 @@
+services:
+  postgres:
+    image: postgres:17-alpine
+    container_name: sql-assistant-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: sql_assistant
+      POSTGRES_USER: sql_assistant
+      POSTGRES_PASSWORD: ${SQL_ASSISTANT_POSTGRES_PASSWORD:?Set SQL_ASSISTANT_POSTGRES_PASSWORD in api/.env}
+    ports:
+      - "127.0.0.1:5434:5432"
+    volumes:
+      - sql_assistant_postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U sql_assistant -d sql_assistant"]
+      interval: 2s
+      timeout: 3s
+      retries: 30
+      start_period: 5s
+
+volumes:
+  sql_assistant_postgres_data:

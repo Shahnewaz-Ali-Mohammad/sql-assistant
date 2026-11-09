@@ -1,0 +1,10 @@
+.DS_Store
+api/.env
+api/.encryption.key
+api/.venv/
+api/__pycache__/
+web/.env.local
+web/node_modules/
+web/.next/
+
+docker-compose.override.yml
